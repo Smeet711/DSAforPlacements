@@ -1,0 +1,15 @@
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        
+       Set<Integer> set = new HashSet<>();
+        for (int i: nums){ // run loop till end
+                if(!set.add(i))return true;// if we found the similar value which is already present in set, then no need to add simply return true;
+            // as it mean's the one of the same value is already over there
+        }
+        return false;// otherwise, return false
+    }
+}
+
+Tc : O(N)
+Sc : O(N)
+
