@@ -1,0 +1,16 @@
+ public Node removeDuplicates(Node head) 
+    {
+          Set<Integer> set = new HashSet<>();
+    Node pre = null;
+    Node fakeHead = head;
+    while(fakeHead != null){
+        if(!set.add(fakeHead.data)){
+            pre.next = fakeHead.next;
+        } else{
+            pre = fakeHead;
+        }
+        fakeHead = fakeHead.next;
+    }
+    return head;
+         
+    }
