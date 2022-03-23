@@ -1,0 +1,38 @@
+class Solution
+{
+    Node compute(Node head)
+    {
+        
+        Node temp = head;
+        Node dummy = new Node(-1);
+        Node curr = dummy;
+        
+        ArrayList<Integer> list = new ArrayList<>();
+        while(temp != null){
+            list.add(temp.data);
+            temp = temp.next;
+        }
+         ArrayList<Integer> List =new ArrayList<Integer>();
+        
+        int size = list.size();
+        
+        int max = 0;
+        
+        for(int i=size-1;i>=0;i--){
+            if(list.get(i) >= max ){
+                List.add(list.get(i));
+                max = list.get(i);
+            }
+        }
+        
+        Collections.reverse(List);
+        
+         for(int i=0;i<List.size();i++){
+           Node forward=new Node(List.get(i));
+           dummy.next=forward;
+           dummy=dummy.next;
+       }
+       
+       return curr.next;
+    }
+}
