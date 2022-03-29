@@ -1,0 +1,19 @@
+ public static void postorder(Node root)
+    {
+        // return if the current node is empty
+        if (root == null) {
+            return;
+        }
+        
+        POSTORDER => [LEFT, RIGHT, ROOT]
+        
+    
+        // Traverse the left subtree
+        postorder(root.left);
+    
+        // Traverse the right subtree
+        postorder(root.right);
+    
+        // Display the data part of the root (or current node)
+        System.out.print(root.data + " ");
+    }
