@@ -1,0 +1,56 @@
+class Solution
+{
+	boolean isSumTree(Node root)
+	{
+             if(root == null){
+                 return true;
+             }
+             
+             // check if it is a LEAF node
+             if(isLeaf(root)){
+                 return true;
+             }
+             
+             int sumLeft = sum(root.left);
+             int sumRight = sum(root.right);
+             
+             
+             if (sumLeft != -1 && sumRight != -1) {
+            if (sumLeft + sumRight == root.data)
+                return true;
+            return false;
+        }
+        
+        return false;
+	}
+	
+	//
+	boolean isLeaf(Node root){
+	    if(root != null && root.left == null && root.right == null){
+	        return true;
+	    }
+	    return false;
+	}
+	//
+	int sum(Node root) {
+	    if (isLeaf(root))
+	        return root.data;
+	        
+	   if (root == null)
+	    return 0;
+	        
+	    int sumL = sum(root.left);
+        int sumR = sum(root.right);
+        
+        if (sumL != -1 && sumR != -1) {
+            if (sumL + sumR == root.data)
+                return sumL + sumR + root.data;
+            return -1;
+        }
+        
+        return -1;
+	}
+}
+
+// both left and right substree ka Sum == Root
+
