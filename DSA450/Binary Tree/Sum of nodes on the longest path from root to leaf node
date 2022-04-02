@@ -1,0 +1,43 @@
+class Solution{
+    public int sumOfLongRootToLeafPath(Node root)
+    {
+        
+        if(root == null){
+            return 0;
+        }
+        TreeMap<Integer,Integer> sumMap = new TreeMap<>();
+        
+        
+        LongestSum(root,0,0,sumMap);
+        
+        return sumMap.get(sumMap.lastKey());
+        
+    }
+    
+    //
+    public void LongestSum(Node root,int level,int sum,TreeMap<Integer,Integer> map){
+        
+        if(root == null){
+            map.put(level-1,sum);
+            return;
+        }
+        
+        if(isLeaf(root)){
+            map.put(level,sum+root.data);
+            return;
+        }
+        
+        LongestSum(root.left,level+1,sum+root.data,map);
+        LongestSum(root.right,level+1,sum+root.data,map);
+        
+    }
+    
+    //
+    // checking if it is a LEAF Node
+    
+    public  boolean isLeaf(Node root){
+        return root.left == null && root.right == null;
+       
+    }
+    
+}
