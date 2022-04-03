@@ -1,0 +1,61 @@
+class Solution
+{
+    //
+    public static int sumOfGrandChildren(Node root,HashMap<Node,Integer> mp){
+        
+        int sum = 0;
+        
+        if(root.left != null){
+            sum += getMaxSumUtil(root.left.left,mp)+
+            getMaxSumUtil(root.left.right,mp);
+        }
+        
+        if(root.right != null){
+            sum += getMaxSumUtil(root.right.right,mp)+
+            getMaxSumUtil(root.right.left,mp);
+        }
+        
+        return sum;
+    }
+    
+    
+    //
+    
+    public static int getMaxSumUtil(Node root,HashMap<Node,Integer> mp){
+        
+        if(root == null){
+            return 0;
+        }
+        if(mp.containsKey(root)){
+            return mp.get(root);
+        }
+        
+        
+        // includeing nodes
+        int inc1 = root.data + sumOfGrandChildren(root,mp);
+        
+        // excluding nodes
+        int exc2 =  getMaxSumUtil(root.left, mp) + getMaxSumUtil(root.right, mp);
+        
+        mp.put(root, Math.max(inc1,exc2));
+        
+        return mp.get(root);
+    }
+    
+    
+    //Function to return the maximum sum of non-adjacent nodes.
+    static int getMaxSum(Node root)
+    {
+        
+        if(root == null){
+            return 0;
+        }
+        
+        HashMap<Node,Integer> map = new HashMap<>();
+        return getMaxSumUtil(root, map);
+        
+    }
+}
+
+TC : O(N)
+SC : O(N)
