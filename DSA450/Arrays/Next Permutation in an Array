@@ -1,0 +1,45 @@
+
+Eg :- 23143 =>   23314
+It should be greater then the orginal if it is not in descending order,if in descending order then print reverse of it.
+
+
+Step1 : FInd the index & the element which is breaking the flow of descending from right
+Step2 : Then swap with closest element of it
+Step3 : Then do reverse of one i+1;
+
+Start Traversing from right (n-2)
+
+
+
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        
+        if(nums == null || nums.length <= 1){
+            return;
+        }
+        int i = nums.length-2;
+        while(i >=0 && nums[i] >= nums[i+1]){
+            i--;
+        }
+        if(i >= 0){
+            int j = nums.length-1;
+            while(nums[j] <= nums[i]){
+                j--;
+            }
+            swap(nums,i,j);
+        }
+        reverse(nums,i+1,nums.length-1);
+    }
+    public void swap(int[] nums,int i,int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    
+    public void reverse(int[] nums,int i,int j){
+        while(i <= j){
+            swap(nums,i++,j--);
+        }
+    }
+}
