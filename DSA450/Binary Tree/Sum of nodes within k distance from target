@@ -1,0 +1,41 @@
+class solver{
+    static int sum_at_distK(Node root, int target, int k){
+        
+        Map<Node,Node> par = new HashMap<>();
+        par.put(root,null);
+        Queue<Node> q = new LinkedList<>();
+        q.offer(root);
+        Node reqNode = null;
+        while(!q.isEmpty()){
+            Node curr = q.poll();
+            if(curr.data==target) reqNode = curr;
+            if(curr.left!=null){
+                par.put(curr.left,curr);
+                q.offer(curr.left);
+            }
+            if(curr.right!=null){
+                par.put(curr.right,curr);
+                q.offer(curr.right);
+            }
+        }
+        int ans = 0;
+        q.offer(reqNode);
+        int count = 0;
+        Set<Node> set = new HashSet<>();
+        set.add(reqNode);
+        while(!q.isEmpty()){
+            if(count>k) break;
+            int len = q.size();
+            for(int i=0;i<len;i++){
+                Node curr = q.poll();
+                ans += curr.data;
+                if(curr.left!=null && set.add(curr.left)) q.offer(curr.left);
+                if(curr.right!=null && set.add(curr.right)) q.offer(curr.right);
+                if(par.get(curr)!=null && set.add(par.get(curr))) q.offer(par.get(curr));
+            }
+            count++;
+        }
+        return ans;
+        
+    }
+}
