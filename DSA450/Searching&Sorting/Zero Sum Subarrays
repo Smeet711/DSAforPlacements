@@ -1,0 +1,50 @@
+ int count = 0;
+      
+//         int[] sum = new int[nums.length + 1];
+//         sum[0] = 0;
+//         for (int i = 1; i <= nums.length; i++){
+//             sum[i] = sum[i - 1] + nums[i - 1];
+//         }
+      
+//         for (int start = 0; start < sum.length; start++) {
+//             for (int end = start + 1; end < sum.length; end++) {
+//                 if (sum[end] - sum[start] == 0){
+//                     count++;
+//                 }
+//             }
+//         }
+      
+//         return count;
+
+TC : O(n2)
+SC : O(N)
+
+//
+
+ public static long findSubarray(long[] arr ,int n) 
+    {
+         long count = 0;
+         
+         HashMap<Integer,Integer> map = new HashMap<>();
+         
+         int i = -1;
+         
+         int sum = 0;
+         map.put(0,1);
+         while(i < arr.length-1){
+             i++;
+             sum += arr[i];
+         if(map.containsKey(sum)){
+             count += map.get(sum);
+             map.put(sum,map.get(sum)+1);
+         }else{
+             map.put(sum,1);
+         }    
+         }
+         return count;
+    }
+    
+    TC : O(N)
+    SC : O(N)
+
+
