@@ -1,0 +1,25 @@
+class GfG
+{
+    int maxLen(int arr[], int n)
+    {
+        Map<Integer,Integer> hs = new HashMap<>();
+        int sum = 0;
+        int len = 0;
+        hs.put(0,-1);
+        
+        for(int i=0;i<n;i++){
+            sum += arr[i];
+            if(!hs.containsKey(sum)){
+                hs.put(sum,i);
+            }else{
+                int index = hs.get(sum);
+                len = Math.max(len,i-index);
+            }
+        }
+        return len;
+    }
+}
+
+
+TC: O(N)
+SC : O(N)
