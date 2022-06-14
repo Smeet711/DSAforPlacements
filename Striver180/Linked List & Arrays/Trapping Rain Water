@@ -26,3 +26,48 @@ class Solution {
 
 TC : O(N)
 SC : O(N)
+
+
+Using Constant Space
+
+ public static int trap(int[] heights)
+    {
+        // maintain two pointers left and right, pointing to the leftmost and
+        // rightmost index of the input array
+        int left = 0, right = heights.length - 1, water = 0;
+ 
+        int maxLeft = heights[left];
+        int maxRight = heights[right];
+ 
+        while (left < right)
+        {
+            if (heights[left] <= heights[right])
+            {
+                left++;
+                maxLeft = Integer.max(maxLeft, heights[left]);
+                water += (maxLeft - heights[left]);
+            }
+            else {
+                right--;
+                maxRight = Integer.max(maxRight, heights[right]);
+                water += (maxRight - heights[right]);
+            }
+        }
+ 
+        return water;
+    }
+    
+    TC : O(N)
+    SC : O(1)
+    
+    
+
+
+
+
+
+
+
+
+
+
