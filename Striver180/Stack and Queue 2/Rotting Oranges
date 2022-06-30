@@ -1,0 +1,67 @@
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        
+        if(grid == null || grid.length == 0){
+            return 0;
+        }
+        
+        int rows = grid.length;
+        int cols = grid[0].length;
+        
+        Queue<int[]> q = new LinkedList<>();
+        int count_fresh = 0;
+        
+        //put the position of rotten oranges in Queue
+        
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(grid[i][j] == 2){
+                    q.offer(new int[]{i,j});
+                }
+                //count the number of fresh oranges
+                if(grid[i][j] != 0){
+                    count_fresh++;
+                }
+            }
+        }
+        
+        
+        if(count_fresh == 0){
+            return 0;
+        }
+        
+        int minutes = 0,count=0;
+        
+        // co-ordinates to traverse in (graph like) (o,1-right)(0,-1 - left) (1,0 - bottom) (-1,0 - top)
+        int[] dx = {0,0,1,-1};
+        int[] dy = {1,-1,0,0};
+        
+        // bfs starting from initially rotten oranges
+        while(!q.isEmpty()){
+            int size = q.size();
+            count += size;
+        for(int i=0;i<size;i++){
+            int[] point = q.poll();
+            for(int j=0;j<4;j++){
+                // for checking in 4 directions eg of(0,0)
+                int x = point[0]+dx[j];
+                int y = point[1]+dy[j];
+                
+            if(x < 0 || y < 0 || x >= rows || y >= cols || grid[x][y] == 0 || grid[x][y] == 2){
+                continue;
+            }   
+              grid[x][y] = 2;
+               q.offer(new int[]{x,y}); 
+            }
+            
+        }    
+            if(q.size() != 0){
+                minutes++;
+            }
+            
+        }
+        
+        return count_fresh == count?minutes:-1;
+        
+    }
+}
