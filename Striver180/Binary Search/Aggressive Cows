@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+import java.util.*;
+public class Solution 
+{
+    public static boolean canPlace(int distance,ArrayList<Integer> stalls,int cows){
+        
+        int placed = 1;
+        int lastPlaced = stalls.get(0);
+        for(int i=1;i<stalls.size();i++){
+            if(stalls.get(i)-lastPlaced >= distance){
+                placed++;
+                lastPlaced = stalls.get(i);
+            }
+        }
+        
+        if(placed >= cows){
+            return true;
+        }else{
+            return false;
+        }
+       
+    }
+    //
+    //
+    
+    public static int aggressiveCows(ArrayList<Integer> stalls, int k) 
+    {
+        
+        Collections.sort(stalls);
+        
+        int n = stalls.size();
+        int low = 0;
+        int high = stalls.get(n-1)+1;
+        int minGap = 0;
+        
+        while(low < high){
+            
+            int mid = (high+low)/2;
+            if(canPlace(mid,stalls,k)){
+                low = mid+1;
+                minGap = mid;
+            }else{
+                high = mid;
+            }
+        }
+        return minGap;
+    }
+}
+
+
+TC :- O(log(n) * (Stalls))
+
+
+
